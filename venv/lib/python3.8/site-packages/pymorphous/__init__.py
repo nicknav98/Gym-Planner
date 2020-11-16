@@ -1,0 +1,3 @@
+"""
+The pymorphous library
+"""
