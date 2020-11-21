@@ -13,7 +13,7 @@ class WorkoutListResource(Resource):
 
     def post(self):
         data = request.get_json()
-        workouts = Workout(name=data['name'],
+        workouts = Workouts(name=data['name'],
                 length=data['length'],
                 directions=data['directions'],
                 type=data['type'],
@@ -34,12 +34,12 @@ class WorkoutResource(Resource):
         workouts = next((workouts for workouts in workouts_list if workouts.id == workouts_id), None)
         if workouts is None:
             return {'message': 'workouts not found'}, HTTPStatus.NOT_FOUND
-            workouts.name = data['name']
-            workouts.length = data['length']
-            workouts.directions = data['directions']
-            workouts.type = data['type']
-            workouts.is_publish = data['is_publish']
-            return workouts.data, HTTPStatus.OK
+        workouts.name = data['name']
+        workouts.length = data['length']
+        workouts.directions = data['directions']
+        workouts.type = data['type']
+        workouts.is_publish = data['is_publish']
+        return workouts.data, HTTPStatus.OK
 
 class WorkoutPublishResource(Resource):
     def put(self, recipe_id):
