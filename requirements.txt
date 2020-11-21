@@ -1,5 +1,4 @@
 Flask==1.0.3
-httpie==1.0.2
-Flask-SQLAlchemy==2.4.0
-Flask-Migrate==2.5.2
+Flask-RESTful==0.3.7
+httpie==1.0.3
 
