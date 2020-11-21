@@ -10,13 +10,12 @@ def get_last_id():
 
 
 class Workout:
-    def __init__(self, name, length, directions, type):
+    def __init__(self, name, length, directions):
         self.data = None
         self.id = get_last_id()
         self.name = name
         self.length = length
         self.directions = directions
-        self.type = type
         self.is_publish = False
 
 @property
@@ -26,7 +25,7 @@ def data(self):
         'name': self.name,
         'length': self.length,
         'directions': self.directions,
-        'type': self.type
+
     }
 
 

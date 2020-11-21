@@ -17,7 +17,7 @@ class WorkoutListResource(Resource):
         workouts = Workout(name=data['name'],
                            length=data['length'],
                            directions=data['directions'],
-                           type=data['type'],
+
                            )
         workout_list.append(workouts)
         return workouts.data, HTTPStatus.CREATED
@@ -39,7 +39,7 @@ class WorkoutResource(Resource):
         workouts.name = data['name']
         workouts.length = data['length']
         workouts.directions = data['directions']
-        workouts.type = data['type']
+
         return workouts.data, HTTPStatus.OK
 
 
