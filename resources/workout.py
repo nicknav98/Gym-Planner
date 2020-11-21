@@ -16,9 +16,7 @@ class WorkoutListResource(Resource):
         data = request.get_json()
         workouts = Workout(name=data['name'],
                            length=data['length'],
-                           directions=data['directions'],
-
-                           )
+                           directions=data['directions'])
         workout_list.append(workouts)
         return workouts.data, HTTPStatus.CREATED
 
@@ -31,9 +29,9 @@ class WorkoutResource(Resource):
             return {'message': 'workouts not found'}, HTTPStatus.NOT_FOUND
         return workouts.data, HTTPStatus.OK
 
-    def put(self, workouts_id):
+    def put(self, workout_id):
         data = request.get_json()
-        workouts = next((workouts for workouts in workout_list if workouts.id == workouts_id), None)
+        workouts = next((workouts for workouts in workout_list if workouts.id == workout_id), None)
         if workouts is None:
             return {'message': 'workouts not found'}, HTTPStatus.NOT_FOUND
         workouts.name = data['name']
