@@ -1,5 +1,6 @@
 workout_list = []
 
+
 def get_last_id():
     if workout_list:
         last_workout = workout_list[-1]
@@ -7,8 +8,10 @@ def get_last_id():
         return 1
     return last_workout.id +1
 
+
 class Workout:
-    def __init__(self, name, length, directions, type):
+    def __init__(self, name, length, directions, type, is_publish):
+        self.data = None
         self.id = get_last_id()
         self.name = name
         self.length = length
@@ -23,7 +26,8 @@ def data(self):
         'name' : self.name,
         'length' : self.length,
         'directions' : self.directions,
-        'type' : self.type
+        'type' : self.type,
+        'is_publish' : self.is_publish
     }
 
 

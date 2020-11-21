@@ -3,6 +3,7 @@ from flask_restful import Resource
 from http import HTTPStatus
 from models.workouts import Workout, workout_list
 
+
 class WorkoutListResource(Resource):
     def get(self, workout=None):
         data = []
@@ -21,6 +22,7 @@ class WorkoutListResource(Resource):
         workout_list.append(workouts)
         return workouts.data, HTTPStatus.CREATED
 
+
 class WorkoutResource(Resource):
     def get(self, workouts_id):
         workouts = next((workouts for workouts in workout_list if workouts.id ==
@@ -29,7 +31,7 @@ class WorkoutResource(Resource):
             return {'message': 'recipe not found'}, HTTPStatus.NOT_FOUND
         return workouts.data, HTTPStatus.OK
 
-    def put(self, workouts_id):
+    def put(workouts_id):
         data = request.get_json()
         workouts = next((workouts for workouts in workout_list if workouts.id == workouts_id), None)
         if workouts is None:
@@ -40,6 +42,7 @@ class WorkoutResource(Resource):
         workouts.type = data['type']
         workouts.is_publish = data['is_publish']
         return workouts.data, HTTPStatus.OK
+
 
 class WorkoutPublishResource(Resource):
     def put(self, recipe_id):
