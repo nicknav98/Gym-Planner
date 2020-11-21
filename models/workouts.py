@@ -18,6 +18,7 @@ class Workout:
         self.directions = directions
         self.is_publish = False
 
+
 @property
 def data(self):
     return {
@@ -27,6 +28,3 @@ def data(self):
         'directions': self.directions,
 
     }
-
-
-

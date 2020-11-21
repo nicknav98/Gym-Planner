@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 
-
 from resources.workout import WorkoutListResource, WorkoutResource, WorkoutPublishResource
 
 app = Flask(__name__)
