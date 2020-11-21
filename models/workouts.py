@@ -6,11 +6,11 @@ def get_last_id():
         last_workout = workout_list[-1]
     else:
         return 1
-    return last_workout.id +1
+    return last_workout.id + 1
 
 
 class Workout:
-    def __init__(self, name, length, directions, type, is_publish):
+    def __init__(self, name, length, directions, type):
         self.data = None
         self.id = get_last_id()
         self.name = name
@@ -22,12 +22,11 @@ class Workout:
 @property
 def data(self):
     return {
-        'id' : self.id,
-        'name' : self.name,
-        'length' : self.length,
-        'directions' : self.directions,
-        'type' : self.type,
-        'is_publish' : self.is_publish
+        'id': self.id,
+        'name': self.name,
+        'length': self.length,
+        'directions': self.directions,
+        'type': self.type
     }
 
 
