@@ -7,8 +7,8 @@ app = Flask(__name__)
 api = Api(app)
 
 api.add_resource(WorkoutListResource, '/workouts')
-api.add_resource(WorkoutResource, '/workouts/<int:workout_id>')
-api.add_resource(WorkoutPublishResource, '/workouts/<int:workout_id>/publish')
+api.add_resource(WorkoutResource, '/workouts/int:workout_id')
+api.add_resource(WorkoutPublishResource, '/workouts/int:workout_id/publish')
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(port=5000, debug=True)
