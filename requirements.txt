@@ -1,8 +1,8 @@
-Flask==1.0.3
-Flask-RESTful==0.3.7
-httpie==1.0.3
+Flask==1.1.2
+Flask-RESTful==0.3.8
+httpie==2.3.0
 
-FLask-SQLAlchemy==2.4.0
-Flask-Migrate==2.5.2
+FLask-SQLAlchemy==2.4.4
+Flask-Migrate==2.5.3
 psycopg2-binary==2.8.6
-passlib==1.7.1
+passlib==1.7.4
