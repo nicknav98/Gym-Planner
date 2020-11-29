@@ -1,5 +1,5 @@
 class Config:
-    DEBUG = True
+    DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://{your_name}:{your_password}@localhost/{db_name}'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:6969@localhost:6000/Gym-Planner'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
