@@ -1,3 +1,5 @@
+from extensions import db
+
 workout_list = []
 
 def get_last_id():
@@ -8,20 +10,14 @@ def get_last_id():
     return last_workout.id + 1
 
 class Workout:
-    def __init__(self, name, length, directions, body_part):
-        self.id = get_last_id()
-        self.name = name
-        self.length = length
-        self.directions = directions
-        self.body_part = body_part
-        self.is_publish = False
+    __tablename__ = 'workout'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    length = db.Column(db.String(200))
+    directions = db.Column(db.String(200))
+    body_part = db.Column(db.String(200))
+    is_publish = db.Column(db.Boolean(), default=False)
+    created_at = db.Column(db.DateTime(), nullable=False, server_default = db.func.now())
+    updated_at = db.Column(db.DateTime(), nullable=False, server_default = db.func.now(), onupdate = db.func.now())
 
-    @property
-    def data(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'length': self.length,
-            'directions': self.directions,
-            'body_part': self.body_part
-        }
+    user_id = db.Column(db.Integer(), db.ForeignKey("user.id"))
