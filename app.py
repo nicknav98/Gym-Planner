@@ -7,8 +7,6 @@ from Config import Config
 from extensions import db, jwt
 
 
-from extensions import db
-from resources.user import UserListResource
 from resources.workout import WorkoutListResource, WorkoutResource, WorkoutPublishResource
 from resources.token import TokenResource, RefreshResource, RevokeResource, black_list
 from resources.user import UserListResource, UserResource, MeResource
@@ -42,7 +40,6 @@ def register_resources(app):
     api.add_resource(WorkoutListResource, '/workouts')
     api.add_resource(WorkoutResource, '/workouts/<int:workout_id>')
     api.add_resource(WorkoutPublishResource, '/workouts/<int:workout_id>/publish')
-    api.add_resource(UserListResource, '/users')
     api.add_resource(UserResource, '/users/<string:username>')
 
     api.add_resource(MeResource, '/me')
@@ -56,5 +53,5 @@ if __name__ == '__main__':
     app = create_app()
 
     app.run(port=5050, debug=True)
-    app.run(port=6000, debug=True)
+
 
