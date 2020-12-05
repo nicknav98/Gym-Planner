@@ -21,7 +21,7 @@ class WorkoutListResource(Resource):
     def post(self):
         json_data = request.get_json()
         current_user = get_jwt_identity()
-        data, errors = workout_list_schema.load(data=json_data)
+        data, errors = workout_schema.load(data=json_data)
         if errors:
             return {'message': 'Validation errors', 'errors': errors}, HTTPStatus.BAD_REQUEST
         workout = Workout(**data)
