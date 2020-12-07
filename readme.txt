@@ -1,7 +1,7 @@
 https://flask-sqlalchemy.palletsprojects.com/en/2.x/contexts/
 
-#Gym-Planner
-Turku University of Applied Sciences AP Course Project.
+# Workout-Planner
+Turku University of Applied Sciences Application Programming Course Project.
 
 Collaborators are: Michalis Iona and Jerry Stigell. 
 
