@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, url_for, render_template
 from flask_restful import Resource
 from flask_jwt_extended import jwt_optional, get_jwt_identity, jwt_required
 from http import HTTPStatus
@@ -9,10 +9,17 @@ from models.user import User
 from models.workout import Workout
 from schemas.user import UserSchema
 from schemas.workout import WorkoutSchema
+from mailgun import MailgunApi
+from utils import generate_token, verify_token
+import os
+
+mailgun = MailgunApi(domain=os.environ.get('MAILGUN_DOMAIN'), api_key=os.environ.get('MAILGUN_API_KEY'))
 
 user_schema = UserSchema()
 user_public_schema = UserSchema(exclude=('email',))
 workout_list_schema = WorkoutSchema(many=True)
+mailgun = MailgunApi(domain='sandboxdf61f57cc4744a598b8ed353e29c2a89.mailgun.org',
+                     api_key='b2bfda3e6bfab013101bb59a2b1a940b-4879ff27-fc85d8ee')
 
 
 class UserListResource(Resource):
@@ -30,6 +37,22 @@ class UserListResource(Resource):
 
         user = User(**data)
         user.save()
+
+        token = generate_token(user.email, salt='activate')
+
+        subject = 'Please confirm your registration.'
+
+        link = url_for('useractivateresource',
+                       token=token,
+                       _external=True)
+
+        text = 'Hi, Thanks for using Gym-Planner! Please confirm your registration by clicking on the link: {}'.format(
+            link)
+
+        mailgun.send_email(to=user.email,
+                           subject=subject,
+                           text=text,
+                           html=render_template('templates/email/confirmation.html', link=link))
 
         return user_schema.dump(user).data, HTTPStatus.CREATED
 
@@ -84,3 +107,27 @@ class UserWorkoutListResource(Resource):
         workouts = Workout.get_all_by_user(user_id=user.id, visibility=visibility)
 
         return workout_list_schema.dump(workouts).data, HTTPStatus.OK
+
+
+class UserActivateResource(Resource):
+
+    def get(self, token):
+
+        email = verify_token(token, salt='activate')
+
+        if email is False:
+            return {'message': 'Invalid token or token expired'}, HTTPStatus.BAD_REQUEST
+
+        user = User.get_by_email(email=email)
+
+        if not user:
+            return {'message': 'User not found'}, HTTPStatus.NOT_FOUND
+
+        if user.is_active is True:
+            return {'message': 'The user account is already activated'}, HTTPStatus.BAD_REQUEST
+
+        user.is_active = True
+
+        user.save()
+
+        return {}, HTTPStatus.NO_CONTENT

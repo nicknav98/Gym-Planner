@@ -8,7 +8,7 @@ from extensions import db, jwt
 
 from resources.workout import WorkoutListResource, WorkoutResource, WorkoutPublishResource
 from resources.token import TokenResource, RefreshResource, RevokeResource, black_list
-from resources.user import UserListResource, UserResource, MeResource, UserWorkoutListResource
+from resources.user import UserListResource, UserResource, MeResource, UserWorkoutListResource, UserActivateResource
 
 
 def create_app():
@@ -43,6 +43,7 @@ def register_resources(app):
     api.add_resource(UserWorkoutListResource, '/users/<string:username>/workouts')
 
     api.add_resource(MeResource, '/me')
+    api.add_resource(UserActivateResource, '/users/activate/<string:token>')
 
     api.add_resource(TokenResource, '/token')
     api.add_resource(RefreshResource, '/refresh')
