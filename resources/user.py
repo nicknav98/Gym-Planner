@@ -1,4 +1,5 @@
-from flask import request, url_for, render_template
+import os
+from flask import request, url_for
 from flask_restful import Resource
 from flask_jwt_extended import jwt_optional, get_jwt_identity, jwt_required
 from http import HTTPStatus
@@ -11,15 +12,12 @@ from schemas.user import UserSchema
 from schemas.workout import WorkoutSchema
 from mailgun import MailgunApi
 from utils import generate_token, verify_token
-import os
-
-mailgun = MailgunApi(domain=os.environ.get('MAILGUN_DOMAIN'), api_key=os.environ.get('MAILGUN_API_KEY'))
 
 user_schema = UserSchema()
 user_public_schema = UserSchema(exclude=('email',))
 workout_list_schema = WorkoutSchema(many=True)
-mailgun = MailgunApi(domain='sandboxdf61f57cc4744a598b8ed353e29c2a89.mailgun.org',
-                     api_key='b2bfda3e6bfab013101bb59a2b1a940b-4879ff27-fc85d8ee')
+mailgun = MailgunApi(domain=os.environ['MAILGUN_DOMAIN'],
+                     api_key=os.environ['MAILGUN_API_KEY'])
 
 
 class UserListResource(Resource):
@@ -51,8 +49,7 @@ class UserListResource(Resource):
 
         mailgun.send_email(to=user.email,
                            subject=subject,
-                           text=text,
-                           html=render_template('templates/email/confirmation.html', link=link))
+                           text=text)
 
         return user_schema.dump(user).data, HTTPStatus.CREATED
 
