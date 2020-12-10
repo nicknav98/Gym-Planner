@@ -44,7 +44,7 @@ class WorkoutResource(Resource):
         if workout.is_publish == False and workout_id != current_user:
             return {'message': 'Access is not allowed'}, HTTPStatus.FORBIDDEN
 
-        return workout.data(), HTTPStatus.OK
+        return workout_schema.dump(workout).data, HTTPStatus.OK
 
     @jwt_required
     def patch(self, workout_id):
